@@ -4,7 +4,7 @@ $(function()
         if (e.keyCode == 27) {
             $('#container').fadeOut();
             $('#admin').fadeOut();
-            $.post('http://kn_lightbar/close', JSON.stringify({}));
+            $.post('https://kn_lightbar/close', JSON.stringify({}));
         }
     });
     
@@ -28,5 +28,5 @@ $(function()
 
 function OpenMenu(type) {
     $('#container').fadeOut();
-    $.post('http://kn_lightbar/use', JSON.stringify({ type: type}));
+    $.post('https://kn_lightbar/use', JSON.stringify({ type: type}));
 }
