@@ -1,9 +1,4 @@
 Config = {}
 
-Config.Job = "police"
-
-Config.Rank = 3
-
-Config.Item = true
-
-Config.Command = true
+Config.CommandEnabled = true
+Config.CommandName = "lightbar"

@@ -1,22 +1,5 @@
-ESX = nil
-TriggerEvent(
-    "esx:getSharedObject",
-    function(obj)
-        ESX = obj
-    end
-)
-
 local lightbarCars = {}
 local lightbarCars2 = {}
-
-if Config.Item then
-    ESX.RegisterUsableItem(
-        "lightbar",
-        function(playerId)
-            TriggerClientEvent("lightbar:lightbar:itemUse", playerId)
-        end
-    )
-end
 
 RegisterServerEvent("lightbar:addLightbar")
 AddEventHandler(

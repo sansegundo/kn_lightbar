@@ -1,24 +1,3 @@
-ESX = nil
-local PlayerData = {}
-
-Citizen.CreateThread(
-    function()
-        while ESX == nil do
-            TriggerEvent(
-                "esx:getSharedObject",
-                function(obj)
-                    ESX = obj
-                end
-            )
-
-            while true do
-                Citizen.Wait(0)
-                PlayerData = ESX.GetPlayerData()
-            end
-        end
-    end
-)
-
 local carSpawned = false
 local newVeh = nil
 local inLightbarMenu = false
@@ -48,14 +27,14 @@ Citizen.CreateThread(
                 printControlsText()
             end
             local player = GetPlayerPed(-1)
-            if (IsControlJustReleased(1, 44)) then -- Q to turn on lights
+            if (IsControlJustReleased(1, 44)) then
                 toggleLights()
             end
-            if (IsControlJustReleased(1, 246)) then -- Y to turn on siren
-                sirenTone = "VEHICLES_HORNS_SIREN_1" -- sets siren to default siren
+            if (IsControlJustReleased(1, 246)) then
+                sirenTone = "VEHICLES_HORNS_SIREN_1"
                 toggleSiren()
             end
-            if (IsControlJustReleased(1, 210)) then -- Left control to change siren tone
+            if (IsControlJustReleased(1, 210)) then
                 changeSirenTone()
             end
             if IsControlJustPressed(1, 184) and not isAirhornKeyPressed then
@@ -76,7 +55,7 @@ Citizen.CreateThread(
             end
             if isPlateCar then
                 DisableControlAction(0, 86, true)
-            end -- Disables Veh horn
+            end
         end
     end
 )
@@ -612,17 +591,24 @@ AddEventHandler(
     "lightbar:lightbar:itemUse",
     function(playerId)
         if IsPedInAnyVehicle(PlayerPedId(), false) then
-            if PlayerData.job ~= nil and PlayerData.job.name == Config.Job and PlayerData.job.grade >= Config.Rank then
-                SetNuiFocus(true, true)
-                SendNUIMessage(
-                    {
-                        action = "open"
-                    }
-                )
-            end
+            SetNuiFocus(true, true)
+            SendNUIMessage(
+                {
+                    action = "open"
+                }
+            )
         end
     end
 )
+
+if Config.CommandEnabled then
+    RegisterCommand(
+        Config.CommandName,
+        function(source, args)
+            TriggerEvent("lightbar:lightbar:itemUse")
+        end
+    )
+end
 
 RegisterNUICallback(
     "close",
