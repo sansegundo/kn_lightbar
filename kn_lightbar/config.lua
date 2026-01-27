@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Job = 'police'
+Config.Job = "police"
 
 Config.Rank = 3
 
