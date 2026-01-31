@@ -516,9 +516,9 @@ function playAirHorn(bool)
             airHornSirenID = GetSoundId()
             PlaySoundFromEntity(airHornSirenID, "SIRENS_AIRHORN", tempVeh, 0, 0, 0)
         end
-        if not bool then
+        if not bool and airHornSirenID then
             StopSound(airHornSirenID)
-            ReleaseSoundId(airHornSirenIDs)
+            ReleaseSoundId(airHornSirenID)
             airHornSirenID = nil
         end
     end
@@ -637,12 +637,3 @@ RegisterNUICallback(
         end
     end
 )
-
-if Config.Command then
-    RegisterCommand(
-        "lightbar",
-        function(source, args)
-            TriggerEvent("lightbar:lightbar:itemUse")
-        end
-    )
-end

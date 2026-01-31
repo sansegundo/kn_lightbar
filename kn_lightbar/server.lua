@@ -78,10 +78,10 @@ AddEventHandler(
         for k, v in pairs(lightbarCars) do
             if v.LP == mainVehPlate then
                 plates = v.lights
-                lightbarCars[k] = nil -- removes main vehicle from arr
+                removeAllFromTable(mainVehPlate)
+                break
             end
         end
-        --removeAllFromTable(mainVehPlate)
         TriggerClientEvent("lightbar:updateLightbarArray", source, plates)
     end
 )
@@ -91,10 +91,10 @@ function removeKey(key)
 end
 
 function removeAllFromTable(mainVehPlate)
-    for k, v in pairs(lightbarCars) do
-        if v.LP == mainVehPlate then
-            table.remove(k)
-            return
-        end
+  for keyIndex = #lightbarCars, 1, -1 do
+    local entry = lightbarCars[keyIndex]
+    if entry and entry.LP == mainVehPlate then
+      table.remove(lightbarCars, keyIndex)
     end
+  end
 end
